@@ -7,6 +7,8 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.util.List;
+
 @RestController
 @RequestMapping("/users")
 public class UserController {
@@ -27,5 +29,16 @@ public class UserController {
         }
 
         return new UserInfo(record.id, record.name, "user info");
+    }
+
+    @GetMapping
+    public List<UserRecord> users() {
+        List<UserRecord> record = gateway.findAll();
+
+        if (record == null) {
+            return null;
+        }
+
+        return record;
     }
 }

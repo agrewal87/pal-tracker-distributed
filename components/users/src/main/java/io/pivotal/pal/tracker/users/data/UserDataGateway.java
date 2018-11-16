@@ -44,6 +44,16 @@ public class UserDataGateway {
         return list.get(0);
     }
 
+    public List<UserRecord> findAll() {
+        List<UserRecord> list = jdbcTemplate.query("select id, name from users", rowMapper);
+
+        if (list.isEmpty()) {
+            return null;
+        }
+
+        return list;
+    }
+
 
     private RowMapper<UserRecord> rowMapper =
         (rs, num) -> new UserRecord(rs.getLong("id"), rs.getString("name"));
